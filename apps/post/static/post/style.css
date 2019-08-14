@@ -123,3 +123,7 @@ input.empty {
 .tag-input-small {
     width: 100px;
 }
+
+.tox .tox-tbtn svg{
+    opacity: 0.5;
+}
