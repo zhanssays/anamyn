@@ -1,0 +1,125 @@
+.category-item {
+    align-items: center;
+    font-family: Montserrat;
+    font-size: 14px;
+    line-height: 25px;
+    display: flex;
+    align-items: center;
+}
+
+.category-a {
+    color: black;
+}
+
+.search-menu {
+    display: flex;
+}
+
+.input-group-search {
+    width: 461px;
+    height: 30px;
+    margin-left: 28px;
+    border-radius: 10px;
+}
+
+input.empty {
+    font-size: 14px;
+
+}
+
+.add-post-btn {
+    margin-left: 26px;
+}
+
+.add-post-img {
+    padding: 0px;
+}
+
+.add-post-img:hover {
+    background-color: white;
+    border-color: white;
+}
+
+.filter-btn {
+    font-weight: lighter;
+    margin-left: 18px;
+    color: black;
+    background-color: white;
+    border-color: white;
+    font-size: 14px;
+}
+
+.filter-btn:hover {
+    background-color: #f9476c;
+    border-color: white;
+}
+
+.show > .btn-secondary.dropdown-toggle {
+    color: #fff;
+    background-color: #f9476c;
+    border-color: white;
+}
+
+.dropdown-item-properties {
+    font-size: 14px;
+}
+
+/*Add Post Modal Properties*/
+.modal-header-properties {
+    border-bottom: none;
+}
+
+.add-post-title {
+    margin-top: 40px;
+    font-family: Montserrat;
+    color: #F9476C;
+}
+
+.post-title-properties {
+    border-left: none;
+    border-right: none;
+    border-top: none;
+}
+
+.add-post-content {
+    padding: 0 50px;
+    width: 600px;
+}
+
+.add-post-text-label {
+    font-weight: 100;
+}
+
+.add-post-textarea {
+    width: 530px;
+    height: 156px;
+}
+
+.tag-input-properties{
+    border-left: none;
+    border-right: none;
+    border-top: none;
+    display: inline;
+    width: 100px;
+    font-size: 14px;
+}
+
+.tags-list {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: baseline;
+    border-bottom: 1px solid #dee2e6;
+}
+
+.tag_span {
+    margin: 0 5px;
+    background-color: #ffd2e2;
+    padding: 0 5px;
+    font-size: 14px;
+}
+.tag-input-big {
+    width: 100%;
+}
+.tag-input-small {
+    width: 100px;
+}

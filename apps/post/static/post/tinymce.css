@@ -1,0 +1,8 @@
+.tox-editor-container{
+    display: flex;
+    flex-direction: column-reverse;
+}
+
+.tox .tox-statusbar{
+    display: none;
+}
