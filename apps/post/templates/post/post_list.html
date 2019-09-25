@@ -67,33 +67,51 @@
                         </button>
                     </div>
                     <div class="modal-body">
-                        <form>
+                        <form action="{% url "post:post-create" %}" method="post" id="post-create-form">
+                            {% csrf_token %}
                             <div class="form-group">
                                 {#                                <label for="recipient-name" class="col-form-label">Recipient:</label>#}
                                 <input type="text" class="form-control post-title-properties" id="post-title"
-                                       placeholder="Тема вопроса">
+                                       placeholder="Тема вопроса" name="title">
                             </div>
                             <div class="form-group">
                                 <label for="add-post-text" class="col-form-label add-post-text-label">Ваш вопрос</label>
                                 <textarea id="mytextarea" class="form-control add-post-textarea"
-                                          id="message-text"></textarea>
+                                          name="description"></textarea>
                             </div>
                             <div class="form-group tags-list">
-                                <input type="text" id="tag_input"
+                                <input type="text" id="tag_input" name="tags"
                                        class="form-control tag-input-properties tag tag-input-big"
                                        placeholder="Введите тэги через запятую, например “пособие, семья”">
                             </div>
-                            <div class="form-check float-right">
-                                <input class="form-check-input" type="checkbox" value="" id="defaultCheck1">
-                                <label class="form-check-label" for="defaultCheck1">
+                            <div class="float-right ">
+                                <label class="custom-checkbox">
                                     Задать анонимно
+                                    <input type="checkbox" value="" id="anonymous_checkbox">
+                                    <span class="checkmark"></span>
                                 </label>
                             </div>
+
+                            <div class="dropdown">
+                                <button class="btn btn-secondary dropdown-toggle rubrika-dropdown" type="button"
+                                        id="dropdownMenuButton"
+                                        data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                    Выберите рубрику
+                                </button>
+                                <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+                                    <a class="dropdown-item rubrika-item" href="#">Action</a>
+                                    <a class="dropdown-item rubrika-item" href="#">Another action</a>
+                                    <a class="dropdown-item rubrika-item" href="#">Something else here</a>
+                                </div>
+                            </div>
+
                         </form>
                     </div>
-                    <div class="modal-footer">
-                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                        <button type="button" class="btn btn-primary">Send message</button>
+                    <div class="modal-footer footer-add-post-properties">
+                        <button type="button" class="btn btn-secondary cancel-add-post-btn" data-dismiss="modal">
+                            Отмена
+                        </button>
+                        <button type="button" class="btn btn-primary post-btn" id="post-create-submit-btn">Опубликовать</button>
                     </div>
                 </div>
             </div>
@@ -105,21 +123,65 @@
 
     <div class="page-header">
     </div>
-    <ul>
+    <ul style="list-style: none;">
         {% for post in object_list %}
             <li>
                 <hr>
-                {{ post.created_date }} <br>
-                <h3><a href="{% url 'post:detail' post.id %}">{{ post.title }}</a></h3> <br>
-                {{ post.description }}<br>
-                <a>{{ post.tag_set.all|join:", " }}</a><br>
-                user:{{ post.user.username }}
-                <a href="{% url 'post:post-update' post.id %}" class="btn btn-success">Изменить</a>
-                <p>{{ post.like }} <a class="post-like" href="{% url 'post:post-like' post.id %}">Нравится</a></p>
-                <form action="{% url 'post:post-delete' post.id %}" method="post">
-                    {% csrf_token %}
-                    <button class="btn btn-danger">Удалить</button>
-                </form>
+                <div class="post-created-date-div">
+                    <p class="post-created-date">{{ post.created_date|date:"M-d H:i" }}</p>
+                    <div class="btn-group" role="group">
+                        <button class="post-created-date-btn " id="btnGroupDrop1" data-toggle="dropdown"
+                                aria-haspopup="true" aria-expanded="false"><i
+                                class="fas fa-ellipsis-v post-create-date-more-i" aria-hidden="true"></i></button>
+                        <div class="dropdown-menu" aria-labelledby="btnGroupDrop1" x-placement="bottom-start"
+                             style="position: absolute; will-change: transform; top: 0px; left: 0px; transform: translate3d(0px, 27px, 0px);">
+                            <a href="{% url 'post:post-update' post.id %}" class="dropdown-item update-delete-post-btn">Изменить</a>
+                            <form action="{% url 'post:post-delete' post.id %}" method="post">
+                                {% csrf_token %}
+                                <button class="dropdown-item update-delete-post-btn">Удалить</button>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+
+                <h3 class="post-title"><a href="{% url 'post:detail' post.id %}">{{ post.title }}</a></h3>
+                <p class="post-description">{{ post.description|safe }}</p>
+
+                <div class="post-create-user-properties">
+                    <div style="width: 24px; height: 24px; background-color: #545b62; border-radius: 50%"></div>
+                    <p class="post-create-user">{{ post.user.username }}</p>
+                </div>
+
+                <div class="tags-properties">
+                    <div>
+                        <img src="/media/tag.svg" alt="" style="width: 16px; height: 16px;">
+                        <a class="tags">{{ post.tag_set.all|join:", " }}</a><br>
+                    </div>
+                    <div class="post-comment-like-bookmark-div">
+                        {# comment#}
+                        <p>
+                            <a><i class="far fa-comment-alt comment-icon"></i></a>
+                            <span>2</span>
+                        </p>
+
+                         {# likes#}
+                        <p class="post-like-p">
+                            <a class="post-like" href="{% url 'post:post-like' post.id %}"><i class="far fa-heart"></i></a>
+                             <span>{{ post.like }}</span>
+                        </p>
+
+                         {# bookmark#}
+                        <p class="bookmark-p">
+                            <a>
+                                <i class="far fa-bookmark bookmark-icon"></i>
+                            </a>
+                        </p>
+                    </div>
+                </div>
+
+
+
+
 
             </li>
         {% empty %}

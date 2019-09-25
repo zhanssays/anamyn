@@ -37,6 +37,12 @@ $(document).ready(function (e) {
         $(".tag_span").last().remove();
     }
 
+    // post create form submit
+    $("#post-create-submit-btn").on("click", function (e) {
+        console.log("button clicked");
+        $("#post-create-form").submit();
+    });
+
     // ===========   TINYMCE ============
     tinymce.init({
         selector: '#mytextarea',

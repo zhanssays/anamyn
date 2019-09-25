@@ -95,7 +95,7 @@ input.empty {
     height: 156px;
 }
 
-.tag-input-properties{
+.tag-input-properties {
     border-left: none;
     border-right: none;
     border-top: none;
@@ -117,13 +117,238 @@ input.empty {
     padding: 0 5px;
     font-size: 14px;
 }
+
 .tag-input-big {
     width: 100%;
 }
+
 .tag-input-small {
     width: 100px;
 }
 
-.tox .tox-tbtn svg{
+.tox .tox-tbtn svg {
     opacity: 0.5;
+}
+
+/*Add Post CheckBox*/
+
+/* The container */
+.custom-checkbox {
+    display: block;
+    position: relative;
+    padding-right: 35px;
+    margin-bottom: 12px;
+    cursor: pointer;
+    font-size: 22px;
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+    font-size: 14px;
+}
+
+/* Hide the browser's default checkbox */
+.custom-checkbox input {
+    position: absolute;
+    opacity: 0;
+    cursor: pointer;
+    height: 0;
+    width: 0;
+}
+
+/* Create a custom checkbox */
+.checkmark {
+    position: absolute;
+    top: 0;
+    right: 0;
+    height: 20px;
+    width: 20px;
+    background-color: white;
+    border-radius: 5px;
+    border: 1px solid #000000;
+    opacity: 0.2;
+
+}
+
+/* On mouse-over, add a grey background color */
+.custom-checkbox:hover input ~ .checkmark {
+    background-color: #ccc;
+}
+
+/* When the checkbox is checked, add a blue background */
+.custom-checkbox input:checked ~ .checkmark {
+    background-color: #F9476C;
+    border-color: #F9476C;
+    opacity: 1;
+}
+
+/* Create the checkmark/indicator (hidden when not checked) */
+.checkmark:after {
+    content: "";
+    position: absolute;
+    display: none;
+}
+
+/* Show the checkmark when checked */
+.custom-checkbox input:checked ~ .checkmark:after {
+    display: block;
+}
+
+/* Style the checkmark/indicator */
+.custom-checkbox .checkmark:after {
+    left: 9px;
+    top: 5px;
+    width: 5px;
+    height: 10px;
+    border: solid white;
+    border-width: 0 3px 3px 0;
+    -webkit-transform: rotate(45deg);
+    -ms-transform: rotate(45deg);
+    transform: rotate(45deg);
+}
+
+.btn-secondary:hover {
+    border-color: #545b62;
+    color: black;
+    background-color: white;
+}
+
+/*Add post Rubrika DropDown*/
+
+.rubrika-dropdown {
+    color: black;
+    background-color: white;
+    border-color: #cccccc;
+    font-size: 14px;
+}
+
+.rubrika-item {
+    font-size: 14px;
+}
+
+/*Add Post Footer*/
+
+.footer-add-post-properties {
+    border-top: none;
+}
+
+.cancel-add-post-btn {
+    font-size: 14px;
+    color: #F9476C;
+    background-color: white;
+    border-color: white;
+}
+
+.cancel-add-post-btn:hover {
+    border-color: #F9476C;
+    color: #F9476C;
+    background-color: white;
+}
+
+.post-btn {
+    font-size: 14px;
+    color: #fff;
+    background-color: #F9476C;
+    border-color: #F9476C;
+}
+
+.post-btn:hover {
+    color: #fff;
+    background-color: #F9476C;
+    border-color: #F9476C;
+}
+
+.btn-primary:not(:disabled):not(.disabled).active, .btn-primary:not(:disabled):not(.disabled):active, .show > .btn-primary.dropdown-toggle {
+    color: #fff;
+    background-color: #F9476C;
+    border-color: #F9476C;
+}
+
+/*post date*/
+
+.post-created-date {
+    opacity: 0.5;
+    font-size: 12px;
+    margin: 0;
+}
+
+.post-created-date-div {
+    float: right;
+    display: flex;
+    align-items: center;
+}
+
+.post-created-date-btn {
+    border: none;
+}
+
+.post-create-date-more-i {
+    color: #F9476C;
+}
+
+.post-title {
+    font-size: 18px;
+}
+
+.post-description {
+    font-size: 14px;
+}
+
+.post-create-user-properties {
+    display: flex;
+    align-items: center;
+    margin: 12px 0;
+}
+
+.post-create-user {
+    margin: 0;
+    margin-left: 10px;
+    font-size: 14px;
+}
+
+.tags-properties {
+    margin: 12px 0;
+    font-size: 12px;
+    display: flex;
+    justify-content: space-between;
+}
+
+.tags {
+    margin-left: 10px;
+}
+
+/*more buttons*/
+
+.update-delete-post-btn {
+    font-size: 12px;
+}
+
+/*Comment , Like, Bookmark*/
+
+.post-comment-like-bookmark-div {
+    min-width: 80px;
+    margin-left: 10px;
+    display: flex;
+    justify-content: space-between;
+    padding-right: 7px;
+}
+
+.post-like {
+
+}
+
+.post-like-p {
+    margin-left: 10px;
+    margin: 0;
+}
+
+.comment-icon {
+    color: #F9476C;
+}
+
+.bookmark-p {
+}
+
+.bookmark-icon {
+    color: #F9476C;
 }
