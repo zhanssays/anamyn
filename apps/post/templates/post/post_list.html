@@ -155,7 +155,11 @@
                 <div class="tags-properties">
                     <div>
                         <img src="/media/tag.svg" alt="" style="width: 16px; height: 16px;">
-                        <a class="tags">{{ post.tag_set.all|join:", " }}</a><br>
+
+                        {% for tag in post.tag_set.all %}
+                            <a class="tags">{{ tag }}</a>
+                        {% endfor %}
+
                     </div>
                     <div class="post-comment-like-bookmark-div">
                         {# comment#}

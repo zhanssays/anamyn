@@ -40,6 +40,27 @@ $(document).ready(function (e) {
     // post create form submit
     $("#post-create-submit-btn").on("click", function (e) {
         console.log("button clicked");
+
+        var all_tags = '';
+        var arr = $(".tag_span");
+
+        for (var i = 0; i < arr.length; i++) {
+            all_tags += arr[i].textContent;
+            all_tags += ' ';
+        }
+
+        var last_tag = $('#tag_input').val();
+
+        if (last_tag != ''){
+            all_tags += last_tag;
+            all_tags += ' ';
+            console.log("worked");
+            console.log(last_tag);
+        }
+
+        console.log(all_tags);
+        $('#tag_input').val(all_tags);
+
         $("#post-create-form").submit();
     });
 

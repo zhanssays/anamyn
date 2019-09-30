@@ -23,4 +23,5 @@ urlpatterns = [
     url(r'', include('account.urls')),
     url(r'post/', include('post.urls')),
     url(r'tinymce/', include('tinymce.urls')),
+    url(r'tag/', include('tag.urls')),
 ] + static(settings.STATIC_URL, document_root=settings.STATIC_ROOT) + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

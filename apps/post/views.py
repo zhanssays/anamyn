@@ -84,10 +84,12 @@ class PostCreateView(CreateView):
         obj.user = self.request.user
         obj.save()
 
-        tag_text = form.cleaned_data['tags']
-        tag, created = Tag.objects.get_or_create(name=tag_text)
-        post_tag = PostTag.objects.create(tag=tag, post=obj)
-        post_tag.save()
+        tags_text = form.cleaned_data['tags']
+        all_tags = tags_text.split()
+        for tag_text in all_tags:
+            tag, created = Tag.objects.get_or_create(name=tag_text)
+            post_tag = PostTag.objects.create(tag=tag, post=obj)
+            post_tag.save()
 
         return redirect('post:post-list')
 

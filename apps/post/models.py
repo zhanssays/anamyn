@@ -45,11 +45,11 @@ class Comment(models.Model):
 
 
 class Tag(models.Model):
-    name = models.CharField(max_length=200, unique=True)
+    slug = models.SlugField(max_length=200, unique=True)
     posts = models.ManyToManyField('Post', through='PostTag')
 
     def __str__(self):
-        return self.name
+        return self.slug
 
 
 class PostTag(models.Model):
