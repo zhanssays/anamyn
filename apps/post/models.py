@@ -12,6 +12,7 @@ class Post(models.Model):
     deleted_date = models.DateTimeField(null=True, blank=True)
     like = models.IntegerField(default=0)
     published_date = models.DateTimeField(blank=True, null=True)
+    is_anonymous = models.BooleanField(blank=True, null=True, default=False)
 
     def publish(self):
         self.published_date = timezone.now()

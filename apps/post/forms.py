@@ -1,14 +1,16 @@
 from django import forms
 
-from .models import Post, PostTag, Tag
+from .models import Category, Post, PostTag, Tag
+
 
 class PostForm(forms.ModelForm):
     tags = forms.CharField()
+    category = forms.CharField()
 
     def __init__(self, *args, **kwargs):
         if kwargs.get('instance'):
             initial = kwargs.setdefault('initial', {})
-            tags= [t.name for t in
+            tags = [t.name for t in
                                   kwargs['instance'].tag_set.all()]
             initial['tags'] = ", ".join(e for e in tags)
             print(initial['tags'])
@@ -27,9 +29,10 @@ class PostForm(forms.ModelForm):
 
     class Meta:
         model = Post
-        fields = ('title', 'description', 'tags')
+        fields = ('title', 'description', 'tags', 'is_anonymous')
         widgets = {
             'tags': forms.TextInput,
+            'is_anonymous': forms.CheckboxInput,
         }
 
 

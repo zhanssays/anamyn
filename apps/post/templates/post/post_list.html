@@ -87,23 +87,21 @@
                             <div class="float-right ">
                                 <label class="custom-checkbox">
                                     Задать анонимно
-                                    <input type="checkbox" value="" id="anonymous_checkbox">
+                                    <input type="checkbox" name="is_anonymous" id="anonymous_checkbox">
                                     <span class="checkmark"></span>
                                 </label>
                             </div>
 
-                            <div class="dropdown">
-                                <button class="btn btn-secondary dropdown-toggle rubrika-dropdown" type="button"
-                                        id="dropdownMenuButton"
-                                        data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                    Выберите рубрику
-                                </button>
-                                <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-                                    <a class="dropdown-item rubrika-item" href="#">Action</a>
-                                    <a class="dropdown-item rubrika-item" href="#">Another action</a>
-                                    <a class="dropdown-item rubrika-item" href="#">Something else here</a>
-                                </div>
-                            </div>
+
+                            <select class="custom-select select-rubrika" name="category">
+                                <option selected>Выберите рубрику</option>
+                                {% for category in categories_list %}
+                                    {% if category.name != 'Прямой эфир' %}
+                                        <option class="rubrika-item">{{ category.name }}</option>
+                                    {% endif %}
+                                {% endfor %}
+                            </select>
+
 
                         </form>
                     </div>
@@ -111,7 +109,9 @@
                         <button type="button" class="btn btn-secondary cancel-add-post-btn" data-dismiss="modal">
                             Отмена
                         </button>
-                        <button type="button" class="btn btn-primary post-btn" id="post-create-submit-btn">Опубликовать</button>
+                        <button type="button" class="btn btn-primary post-btn" id="post-create-submit-btn">
+                            Опубликовать
+                        </button>
                     </div>
                 </div>
             </div>
@@ -168,13 +168,13 @@
                             <span>2</span>
                         </p>
 
-                         {# likes#}
+                        {# likes#}
                         <p class="post-like-p">
                             <a class="post-like" href="{% url 'post:post-like' post.id %}"><i class="far fa-heart"></i></a>
-                             <span>{{ post.like }}</span>
+                            <span>{{ post.like }}</span>
                         </p>
 
-                         {# bookmark#}
+                        {# bookmark#}
                         <p class="bookmark-p">
                             <a>
                                 <i class="far fa-bookmark bookmark-icon"></i>
@@ -182,9 +182,6 @@
                         </p>
                     </div>
                 </div>
-
-
-
 
 
             </li>

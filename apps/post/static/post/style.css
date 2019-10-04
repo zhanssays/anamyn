@@ -226,6 +226,12 @@ input.empty {
     font-size: 14px;
 }
 
+.select-rubrika{
+    font-size: 14px;
+    width: 185px;
+    height: 38px;
+}
+
 /*Add Post Footer*/
 
 .footer-add-post-properties {

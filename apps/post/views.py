@@ -87,7 +87,7 @@ class PostCreateView(CreateView):
         tags_text = form.cleaned_data['tags']
         all_tags = tags_text.split()
         for tag_text in all_tags:
-            tag, created = Tag.objects.get_or_create(name=tag_text)
+            tag, created = Tag.objects.get_or_create(slug=tag_text)
             post_tag = PostTag.objects.create(tag=tag, post=obj)
             post_tag.save()
 
