@@ -18,7 +18,12 @@ class PostListView(ListView):
 
     def get_queryset(self):
         qs = super().get_queryset()
-        return qs.filter(category=None)
+        category = self.request.GET.get('category', None)
+        if category is not None and category != 'livestream':
+            category = Category.objects.filter(slug=category)
+            if category.exists():
+                qs = qs.filter(category=category[0])
+        return qs
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
@@ -53,7 +58,13 @@ class PostLike(View):
     def get(self, request, *args, **kwargs):
         if request.user.is_authenticated:
             post = Post.objects.get(pk=self.kwargs.get('pk'))
-            post.like = post.like + 1
+            user = request.user
+            if post.likes.filter(username=user.username).exists():
+                post.likes.remove(user)
+            else:
+                post.likes.add(user)
+
+            post.like_count = post.likes.count()
             post.save()
             return redirect(request.META.get('HTTP_REFERER'))
         else:

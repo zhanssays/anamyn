@@ -10,9 +10,10 @@ class Post(models.Model):
     category = models.ManyToManyField('Category', blank=True, null=True)
     created_date = models.DateTimeField(auto_now_add=True)
     deleted_date = models.DateTimeField(null=True, blank=True)
-    like = models.IntegerField(default=0)
+    like_count = models.IntegerField(default=0)
     published_date = models.DateTimeField(blank=True, null=True)
     is_anonymous = models.BooleanField(blank=True, null=True, default=False)
+    likes = models.ManyToManyField(User, related_name='liked_posts')
 
     def publish(self):
         self.published_date = timezone.now()
@@ -24,6 +25,7 @@ class Post(models.Model):
 
 class Category(models.Model):
     name = models.CharField(max_length=200, unique=True)
+    slug = models.SlugField()
 
     def __str__(self):
         return self.name

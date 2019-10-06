@@ -147,17 +147,19 @@
                 <h3 class="post-title"><a href="{% url 'post:detail' post.id %}">{{ post.title }}</a></h3>
                 <p class="post-description">{{ post.description|safe }}</p>
 
-                <div class="post-create-user-properties">
-                    <div style="width: 24px; height: 24px; background-color: #545b62; border-radius: 50%"></div>
-                    <p class="post-create-user">{{ post.user.username }}</p>
-                </div>
+                {% if not post.is_anonymous %}
+                    <div class="post-create-user-properties">
+                        <div style="width: 24px; height: 24px; background-color: #545b62; border-radius: 50%"></div>
+                        <p class="post-create-user">{{ post.user.username }}</p>
+                    </div>
+                {% endif %}
 
                 <div class="tags-properties">
                     <div>
                         <img src="/media/tag.svg" alt="" style="width: 16px; height: 16px;">
 
                         {% for tag in post.tag_set.all %}
-                            <a class="tags">{{ tag }}</a>
+                            <a class="tags" href="{% url 'tag:tag-detail' tag.slug %}">{{ tag }}</a>
                         {% endfor %}
 
                     </div>
@@ -171,7 +173,7 @@
                         {# likes#}
                         <p class="post-like-p">
                             <a class="post-like" href="{% url 'post:post-like' post.id %}"><i class="far fa-heart"></i></a>
-                            <span>{{ post.like }}</span>
+                            <span>{{ post.like_count }}</span>
                         </p>
 
                         {# bookmark#}
@@ -196,7 +198,7 @@
     <ul>
         {% for category in categories_list %}
             <li class="category-item">
-                <a class="category-a" href="#">{{ category.name }}</a>
+                <a class="category-a" href="?category={{ category.slug }}">{{ category.name }}</a>
             </li>
         {% endfor %}
     </ul>

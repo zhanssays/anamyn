@@ -321,6 +321,8 @@ input.empty {
 
 .tags {
     margin-left: 10px;
+    color: black;
+    opacity: 0.5;
 }
 
 /*more buttons*/
