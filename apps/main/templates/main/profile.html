@@ -1,0 +1,19 @@
+{% extends 'main/base.html' %}
+
+{% block blocks %}
+<div class="container-fluid">
+        <div class="row">
+
+            <div class="col-9 main-menu">
+                {% block left %}
+                {% endblock %}
+            </div>
+
+            <div class="col-3">
+                {% block right %}
+                {% endblock %}
+            </div>
+
+        </div>
+    </div>
+{% endblock %}

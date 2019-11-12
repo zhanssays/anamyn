@@ -57,7 +57,7 @@
 
                 <div class="col-3">
                     {% if user.is_authenticated %}
-                        <a href="">{{ user.username }}</a>
+                        <a href="{% url 'user:profile' %}">{{ user.username }}</a>
                         <a href="{% url 'account:logout' %}">logout</a>
                     {% else %}
                         <a href="{% url 'account:login' %}">login</a> / <a href="{% url 'account:signup' %}">signup</a>
@@ -70,28 +70,9 @@
 
 </header>
 <main>
-    <div class="container-fluid">
-        <div class="row">
+    {% block blocks %}
+    {% endblock %}
 
-            <div class="col-2 categories">
-                {% block left %}
-                {% endblock %}
-            </div>
-
-
-            <div class="col-7 main-menu">
-                {% block middle %}
-                {% endblock %}
-            </div>
-
-
-            <div class="col-3">
-                {% block right %}
-                {% endblock %}
-            </div>
-
-        </div>
-    </div>
     {% block content %}
     {% endblock %}
 </main>

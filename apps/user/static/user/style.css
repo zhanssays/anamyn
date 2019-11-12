@@ -1,0 +1,80 @@
+.main-menu{
+    min-height: 500px;
+}
+
+.profile-title{
+    font-size: 14px;
+    font-weight: 600;
+    color: #000000;
+    margin-bottom: 21px;
+    margin-left: 25px;
+}
+
+/*profile information*/
+
+.profile{
+    display: flex;
+}
+
+.profile-header{
+    margin-bottom: 20px;
+}
+
+.user-photo{
+    height: 110px;
+    width: 110px;
+    background-color: #545b62;
+    border-radius: 60px;
+    margin-left: 25px;
+}
+
+.user-inf{
+    margin-left: 25px;
+}
+
+.user-name{
+    font-weight: 600;
+    font-size: 18px;
+}
+
+.user-city{
+    font-size: 14px;
+    font-style: normal;
+    font-weight: normal;
+    color: rgba(0, 0, 0, 0.5);
+}
+
+.user-children{
+    font-weight: normal;
+    font-size: 14px;
+}
+
+
+/*page navbar*/
+
+.page-tabs{
+    margin-left: 25px;
+}
+
+.user-nav-item{
+    font-weight: normal;
+    font-size: 14px;
+    color: #000000;
+    text-align: left;
+    padding-left: 0;
+    padding-right: 30px;
+}
+
+.nav-link.active{
+    border-bottom: 2px solid;
+    border-bottom-color: #F9476C!important;
+    border-top: none;
+    border-left: none;
+    border-right: none;
+}
+
+.nav-link:hover{
+    border-top: none;
+    border-left: none;
+    border-right: none;
+}

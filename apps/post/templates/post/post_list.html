@@ -1,4 +1,4 @@
-{% extends 'main/base.html' %}
+{% extends 'main/main.html' %}
 {% load static %}
 {% block head %}
     <script src="{% static 'post/post-list.js' %}"></script>
@@ -166,7 +166,8 @@
                     <div class="post-comment-like-bookmark-div">
                         {# comment#}
                         <p>
-                            <a><i class="far fa-comment-alt comment-icon"></i></a>
+                            <a href="{% url 'post:detail' post.id %}">
+                                <i class="far fa-comment-alt comment-icon"></i></a>
                             <span>2</span>
                         </p>
 
