@@ -1,10 +1,25 @@
 {% extends 'main/base.html' %}
 
 {% block blocks %}
-<div class="container-fluid">
+    <div class="container-fluid">
         <div class="row">
 
             <div class="col-9 main-menu">
+                <div class="profile-header">
+                    <p class="profile-title">Мой профиль</p>
+                    <hr>
+                    <div class="profile">
+                        <div class="user-photo">
+                        </div>
+
+                        <div class="user-inf">
+                            <p class="user-name">Zhansaya Smith</p>
+                            <p class="user-city">Город не указан</p>
+                            <p class="user-children">Мама Олега(9 лет)</p>
+                        </div>
+                    </div>
+
+                </div>
                 {% block left %}
                 {% endblock %}
             </div>

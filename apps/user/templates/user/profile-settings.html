@@ -3,8 +3,191 @@
 
 {% block head %}
     <link rel="stylesheet" type="text/css" href="{% static 'user/style.css' %}">
+    <script src="{% static 'user/profile-user.js' %}"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.9.0/js/bootstrap-datepicker.min.js"></script>
+    <link rel="stylesheet"
+          href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.9.0/css/bootstrap-datepicker.min.css">
 {% endblock %}
 
 {% block left %}
-    Hello there
+    <div class="page-tabs">
+        <nav>
+            <div class="nav nav-tabs" id="nav-tab" role="tablist">
+                <a class="nav-item nav-link active user-nav-item" id="nav-home-tab" data-toggle="tab" href="#nav-home"
+                   role="tab"
+                   aria-controls="nav-home" aria-selected="true">Личные данные</a>
+                <a class="nav-item nav-link user-nav-item" id="nav-profile-tab" data-toggle="tab" href="#nav-profile"
+                   role="tab"
+                   aria-controls="nav-profile" aria-selected="false">Планирование</a>
+                <a class="nav-item nav-link user-nav-item" id="nav-contact-tab" data-toggle="tab" href="#nav-contact"
+                   role="tab"
+                   aria-controls="nav-contact" aria-selected="false">Дети</a>
+                <a class="nav-item nav-link user-nav-item" id="nav-settings-tab" data-toggle="tab" href="#nav-settings"
+                   role="tab"
+                   aria-controls="nav-contact" aria-selected="false">Настройки</a>
+            </div>
+        </nav>
+
+        {#        personal inf#}
+        <div class="tab-content" id="nav-tabContent">
+            <div class="tab-pane fade show active" id="nav-home" role="tabpanel" aria-labelledby="nav-home-tab">
+
+                <form class="user-inf-form">
+
+                    <div class="form-div">
+                        <div class="form-group">
+                            <label for="formGroupExampleInput">Ваше имя</label>
+                            <input type="text" class="form-control user-inf-input" id="formGroupExampleInput"
+                                   placeholder="Введите имя">
+                        </div>
+                        <div class="form-group">
+                            <label for="formGroupExampleInput">Ваша фамилия</label>
+                            <input type="text" class="form-control user-inf-input" id="formGroupExampleInput"
+                                   placeholder="Введите имя">
+                        </div>
+                    </div>
+
+                    <div class="form-div">
+                        <div class="form-group">
+                            <label for="formGroupExampleInput2">Дата рождения</label>
+                            <input type="text" class="form-control user-inf-input" id="date-input"
+                                   placeholder="Выберите дату" data-provide="datepicker">
+                        </div>
+                        {#                        <div class="form-check form-check-inline form-group user-inf-input user-form-checkbox">#}
+                        {#                            <input class="form-check-input" type="checkbox" id="inlineCheckbox1" value="option1">#}
+                        {#                            <label class="form-check-label" for="inlineCheckbox1">Не показывать возраст</label>#}
+                        {#                        </div>#}
+                        <div class="form-group user-inf-input user-form-checkbox ">
+                            <label class="custom-checkbox">
+                                Не показывать возраст
+                                <input type="checkbox" name="hide_age" id="hide_age_checkbox">
+                                <span class="checkmark"></span>
+                            </label>
+                        </div>
+                    </div>
+
+                    <div class="form-div">
+                        <div class="form-group">
+                            <label for="formGroupExampleInput2">Город проживания</label>
+                            <select id="inputState" class="form-control user-inf-input">
+                                <option selected>Алматы</option>
+                                <option>...</option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label for="exampleInputEmail1">Ваш Email</label>
+                            <input type="email" class="form-control user-inf-input" id="exampleInputEmail1"
+                                   aria-describedby="emailHelp" placeholder="Enter email">
+                        </div>
+                    </div>
+
+                    <div>
+                        <div class="form-group">
+                            <label for="formGroupExampleInput2">Семейное положение</label>
+                            <select id="inputState" class="form-control user-inf-input">
+                                <option selected>Замужем</option>
+                                <option>...</option>
+                            </select>
+                        </div>
+                    </div>
+
+                    <div>
+                        <div>
+                            <button type="submit" class="btn btn-primary user-inf-save-btn">Сохранить</button>
+                        </div>
+                        <div>
+                            <button type="submit" class="btn btn-primary user-inf-delete-btn">Удалить аккаунт</button>
+                        </div>
+                    </div>
+                </form>
+
+            </div>
+
+            {#            child planning#}
+            <div class="tab-pane fade" id="nav-profile" role="tabpanel" aria-labelledby="nav-profile-tab">
+                <div>
+
+                    <label class="user-inf-form planning-label">Планирование</label>
+
+                    <div class="user-inf-input user-form-checkbox planning-child-checkbox">
+                        <label class="custom-checkbox ">
+                            Я планирую
+                            <input type="checkbox" name="planning_baby" id="planning_baby_checkbox">
+                            <span class="checkmark"></span>
+                        </label>
+
+                        <label class="custom-checkbox ">
+                            Я беременна
+                            <input type="checkbox" name="pregnant" id="pregnant_checkbox">
+                            <span class="checkmark"></span>
+                        </label>
+                    </div>
+
+                    <div class="baby-planning-period">
+                        <label class="baby-planning-period-label">Срок</label>
+
+                        <select id="inputState" class="form-control baby-planning-weeks period">
+                            <option selected="">1 неделя</option>
+                            <option>...</option>
+                        </select>
+
+                        <select id="inputState" class="form-control baby-planning-weeks period">
+                            <option selected="">0 дней</option>
+                            <option>...</option>
+                        </select>
+
+                        <label class="baby-planning-period-label">Предполагаемая дата рождения</label>
+                        <input type="text" class="form-control user-inf-input baby-date-birth" id="date-input"
+                               placeholder="Выберите дату" data-provide="datepicker">
+
+                    </div>
+
+                    <div class="baby-planning-period">
+                        <label class="baby-planning-period-label">Я жду</label>
+                        <select id="inputState" class="form-control baby-planning-weeks period">
+                            <option selected="">Не уверена</option>
+                            <option>...</option>
+                        </select>
+                    </div>
+
+                    <div class="planning-div-btn">
+                        <button type="submit" class="btn btn-primary user-inf-save-btn">Сохранить</button>
+                    </div>
+
+                </div>
+            </div>
+
+            {#                        add baby#}
+            <div class="tab-pane fade" id="nav-contact" role="tabpanel" aria-labelledby="nav-contact-tab">
+                {#                <div class="add-baby-div-btn">#}
+                {#                    <button type="submit" class="btn btn-primary user-inf-save-btn add-baby-btn"><span class="add-child-plus">+</span>Добавить ребенка</button>#}
+                {#                </div>#}
+                <div class="child-add-form">
+                    <div class="circle-ava">
+                        <p id="circle-ava"></p>
+                    </div>
+
+                    <div>
+                        <label for="formGroupExampleInput">Имя</label>
+                        <input type="text" class="form-control user-inf-input child-inf-input"
+                               id="formGroupExampleInput"
+                               placeholder="Введите имя">
+                    </div>
+                    <div class="">
+                        <label for="formGroupExampleInput2">Дата рождения</label>
+                        <input type="text" class="form-control user-inf-input child-inf-input" id="date-input"
+                               placeholder="Выберите дату" data-provide="datepicker">
+                    </div>
+
+                    <label class="container-radiobutton">One
+                        <input type="checkbox" checked="checked">
+                        <span class="checkmark-radiobutton"></span>
+                    </label>
+                </div>
+            </div>
+
+            {#            add baby detail view#}
+            <div class="tab-pane fade" id="nav-settings" role="tabpanel" aria-labelledby="nav-settings-tab">Hello</div>
+        </div>
+    </div>
 {% endblock %}
