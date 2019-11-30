@@ -2,6 +2,10 @@
     min-height: 750px;
 }
 
+.add-baby-pane{
+    min-height: 750px;
+}
+
 /*page navbar*/
 
 .page-tabs {
@@ -190,8 +194,44 @@
 
 /*planining baby*/
 
+.planning-child-form{
+    /*display: none;*/
+}
+
+.planning-child-list{
+    font-size: 14px;
+    display: none;
+}
+
+.planning-child-info{
+    margin-top: 20px;
+    display: flex;
+    flex-direction: column;
+}
+
+.planning-child-title-btn{
+    display: flex;
+    justify-content: space-between;
+    margin-top: 20px;
+}
+
 .planning-label {
     font-weight: 600;
+}
+
+.planning-child-label{
+    opacity: 0.5;
+    margin-right: 15px;
+}
+
+.baby-planning-edit-btn{
+    margin-right: 20px;
+    color: #F9476C;
+}
+
+.baby-planning-delete-btn{
+    margin-right: 25px;
+    color: #F9476C;
 }
 
 .planning-child-checkbox {
@@ -215,6 +255,11 @@
     font-size: 14px;
     margin: 0;
     padding-right: 20px;
+}
+
+.edit-delete-icon{
+    margin-right: 4px;
+    color: #F9476C;
 }
 
 .period {
@@ -272,13 +317,14 @@
   display: block;
   position: relative;
   padding-left: 35px;
-  margin-bottom: 12px;
+  /*margin-bottom: 12px;*/
   cursor: pointer;
   font-size: 14px;
   -webkit-user-select: none;
   -moz-user-select: none;
   -ms-user-select: none;
   user-select: none;
+    margin: 0;
 }
 
 /* Hide the browser's default radio button */
@@ -295,20 +341,20 @@
   position: absolute;
   top: 0;
   left: 0;
-  height: 25px;
-  width: 25px;
+  height: 16px;
+  width: 16px;
   background-color: #eee;
   border-radius: 50%;
 }
 
 /* On mouse-over, add a grey background color */
-.container-radiobutton:hover input ~ .checkmark {
+.container-radiobutton:hover input ~ .checkmark-radiobutton {
   background-color: #ccc;
 }
 
 /* When the radio button is checked, add a blue background */
-.container-radiobutton input:checked ~ .checkmark {
-  background-color: #2196F3;
+.container-radiobutton input:checked ~ .checkmark-radiobutton {
+  background-color: #F9476C;
 }
 
 /* Create the indicator (the dot/circle - hidden when not checked) */
@@ -319,16 +365,136 @@
 }
 
 /* Show the indicator (dot/circle) when checked */
-.container-radiobutton input:checked ~ .checkmark:after {
+.container-radiobutton input:checked ~ .checkmark-radiobutton:after {
   display: block;
 }
 
 /* Style the indicator (dot/circle) */
-.container-radiobutton .checkmark:after {
-  top: 9px;
-  left: 9px;
-  width: 8px;
-  height: 8px;
+.container-radiobutton .checkmark-radiobutton:after {
+  top: 5px;
+  left: 5px;
+  width: 6px;
+  height: 6px;
   border-radius: 50%;
   background: white;
+}
+
+.child-sex-radiobtn{
+    display: flex;
+    align-items: center;
+    margin-right: 20px;
+}
+
+.child-description{
+    display: flex;
+    flex-direction: column;
+}
+
+.child-description-textarea{
+    width: 458px;
+    height: 102px;
+    border-radius: 5px;
+    opacity: 0.2;
+}
+
+.birth-place-label{
+    font-weight: 600;
+    font-size: 14px;
+    margin-top: 30px;
+    margin-bottom: 0;
+}
+
+.child-birth-place{
+    margin-top: 12px;
+}
+
+.baby-birth-place-select{
+    font-size: 14px;
+    margin: 0;
+    width: 283px;
+    margin-right: 26px;
+}
+
+.child-form-checkbox{
+    margin-top: 35px;
+}
+
+
+/*star rating*/
+.star-rating {
+    direction: rtl;
+    display: inline-block;
+}
+
+.star-rating input[type=radio] {
+    display: none
+}
+
+.star-rating label {
+    color: #bbb;
+    font-size: 18px;
+    padding: 0;
+    cursor: pointer;
+    -webkit-transition: all .3s ease-in-out;
+    transition: all .3s ease-in-out
+}
+
+.star-rating label:hover,
+.star-rating label:hover ~ label,
+.star-rating input[type=radio]:checked ~ label {
+    color: #f2b600
+}
+
+
+.child-add-save-btn{
+    margin-top: 30px;
+}
+
+#add-child-form{
+    /*visibility: hidden;*/
+    display: none;
+    margin-bottom: 40px;
+}
+
+.cancel-add-btn{
+    margin-top: 0px;
+}
+
+/*children list*/
+#children-list{
+    font-size: 14px;
+}
+
+.child-personal-info{
+    display: flex;
+    margin-top: 20px;
+}
+
+.baby-photo-ava{
+    height: 70px;
+    width: 70px;
+    background-color: #545b62;
+    border-radius: 60px;
+    margin-right: 20px;
+}
+
+.child-name{
+    font-weight: 600;
+}
+
+.child-inf{
+    display: flex;
+    flex-direction: column;
+}
+
+.child-inf-title{
+    color: rgba(0, 0, 0, 0.5);
+}
+
+.star-checked{
+    color: orange;
+}
+
+.star-rating-div{
+    margin-bottom: .5rem;
 }
