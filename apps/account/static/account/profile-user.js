@@ -32,6 +32,50 @@ $(document).ready(function (e) {
         form.style.display = "block";
         children_list.style.display = "none";
     });
+    console.log(url_profile_list);
+    $("#save-personal-inf-btn").on("click", function (e) {
+        e.preventDefault();
+        var first_name = $("#user_first_name_input").val();
+        var last_name = $("#user_last_name_input").val();
+        var date_of_birth = $("#user_date_input").val();
+        var hide_age = $('#user_hide_age_checkbox').is(":checked");
+        var email = $("#user_email_input").val();
+
+        var city = $("#user_city option:selected").val();
+
+        var marriage_status = $("#user_marriage_status option:selected").val();
+
+        date_of_birth = new Date(date_of_birth).toISOString().slice(0, 10);
+
+        console.log(first_name);
+        console.log(last_name);
+        console.log(date_of_birth);
+        console.log(hide_age);
+        console.log(email);
+        console.log(city);
+        console.log(marriage_status);
+
+
+        $.ajax({
+            url: url_profile_detail,
+            type: "PUT",
+            dataType: "json",
+            data: {
+                city: city,
+                date_of_birth: date_of_birth,
+                marriage_status: marriage_status,
+                hide_age: hide_age,
+            },
+            success: function () {
+            },
+            error: function (xhr, errmsg, err) {
+                console.log(xhr.status + ": " + xhr.responseText); // provide a bit more info about the error to the console
+            }
+        });
+
+
+
+    });
 
 
     // $(".add-child-clone-btn").on("click", function (e) {

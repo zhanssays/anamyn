@@ -2,8 +2,8 @@
 {% load static %}
 
 {% block head %}
-    <link rel="stylesheet" type="text/css" href="{% static 'user/style.css' %}">
-    <script src="{% static 'user/profile-user.js' %}"></script>
+    <link rel="stylesheet" type="text/css" href="{% static 'account/style.css' %}">
+    <script src="{% static 'account/profile-user.js' %}"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.9.0/js/bootstrap-datepicker.min.js"></script>
     <link rel="stylesheet"
           href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.9.0/css/bootstrap-datepicker.min.css">
@@ -41,12 +41,12 @@
                     <div class="form-div">
                         <div class="form-group">
                             <label for="formGroupExampleInput">Ваше имя</label>
-                            <input type="text" class="form-control user-inf-input" id="formGroupExampleInput"
+                            <input type="text" class="form-control user-inf-input" id="user_first_name_input"
                                    placeholder="Введите имя">
                         </div>
                         <div class="form-group">
                             <label for="formGroupExampleInput">Ваша фамилия</label>
-                            <input type="text" class="form-control user-inf-input" id="formGroupExampleInput"
+                            <input type="text" class="form-control user-inf-input" id="user_last_name_input"
                                    placeholder="Введите имя">
                         </div>
                     </div>
@@ -54,7 +54,7 @@
                     <div class="form-div">
                         <div class="form-group">
                             <label for="formGroupExampleInput2">Дата рождения</label>
-                            <input type="text" class="form-control user-inf-input" id="date-input"
+                            <input type="text" class="form-control user-inf-input" id="user_date_input"
                                    placeholder="Выберите дату" data-provide="datepicker">
                         </div>
                         {#                        <div class="form-check form-check-inline form-group user-inf-input user-form-checkbox">#}
@@ -64,7 +64,7 @@
                         <div class="form-group user-inf-input user-form-checkbox ">
                             <label class="custom-checkbox">
                                 Не показывать возраст
-                                <input type="checkbox" name="hide_age" id="hide_age_checkbox">
+                                <input type="checkbox" name="hide_age" id="user_hide_age_checkbox">
                                 <span class="checkmark"></span>
                             </label>
                         </div>
@@ -73,14 +73,14 @@
                     <div class="form-div">
                         <div class="form-group">
                             <label for="formGroupExampleInput2">Город проживания</label>
-                            <select id="inputState" class="form-control user-inf-input">
+                            <select id="user_city" class="form-control user-inf-input">
                                 <option selected>Алматы</option>
                                 <option>...</option>
                             </select>
                         </div>
                         <div class="form-group">
                             <label for="exampleInputEmail1">Ваш Email</label>
-                            <input type="email" class="form-control user-inf-input" id="exampleInputEmail1"
+                            <input type="email" class="form-control user-inf-input" id="user_email_input"
                                    aria-describedby="emailHelp" placeholder="Enter email">
                         </div>
                     </div>
@@ -88,7 +88,7 @@
                     <div>
                         <div class="form-group">
                             <label for="formGroupExampleInput2">Семейное положение</label>
-                            <select id="inputState" class="form-control user-inf-input">
+                            <select id="user_marriage_status" class="form-control user-inf-input">
                                 <option selected>Замужем</option>
                                 <option>...</option>
                             </select>
@@ -97,10 +97,10 @@
 
                     <div>
                         <div>
-                            <button type="submit" class="btn btn-primary user-inf-save-btn">Сохранить</button>
+                            <button type="submit" id="save-personal-inf-btn" class="btn btn-primary user-inf-save-btn">Сохранить</button>
                         </div>
                         <div>
-                            <button type="submit" class="btn btn-primary user-inf-delete-btn">Удалить аккаунт</button>
+                            <button type="submit" id="delete_account_btn" class="btn btn-primary user-inf-delete-btn">Удалить аккаунт</button>
                         </div>
                     </div>
                 </form>
@@ -352,4 +352,11 @@
             <div class="tab-pane fade" id="nav-settings" role="tabpanel" aria-labelledby="nav-settings-tab">Hello</div>
         </div>
     </div>
+{% endblock %}
+
+{% block scripts %}
+    var url_profile_list = "{% url 'userapi:profile-list' %}";
+    var url_profile_detail = "{% url 'userapi:profile-detail' user.profile.id %}";
+    var url_user_list = "{% url 'userapi:user-list' %}";
+    var url_user_detail = "{% url 'userapi:user-detail' user.id %}";
 {% endblock %}

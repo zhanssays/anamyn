@@ -8,7 +8,7 @@ from django.urls import reverse_lazy
 from django.utils.encoding import force_bytes, force_text
 from django.utils.http import urlsafe_base64_encode, urlsafe_base64_decode
 from django.template.loader import render_to_string
-from django.views.generic import FormView, TemplateView
+from django.views.generic import DetailView, FormView, ListView, TemplateView
 
 from .forms import LoginForm, SignUpForm
 from .tokens import account_activation_token
@@ -78,3 +78,15 @@ class LoginView(FormView):
     def form_valid(self, form):
         login(self.request, form.get_user())
         return super(LoginView, self).form_valid(form)
+
+
+class ProfileView(TemplateView):
+    template_name = 'account/profile.html'
+
+
+class ProfileSettingsView(TemplateView):
+    template_name = 'account/profile-settings.html'
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        return context

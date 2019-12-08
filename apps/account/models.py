@@ -8,10 +8,12 @@ from django.dispatch import receiver
 
 class Profile(models.Model):
     user = models.OneToOneField(User, on_delete=models.CASCADE)
-    bio = models.TextField(max_length=500, blank=True)
-    location = models.CharField(max_length=30, blank=True)
-    birth_date = models.DateField(null=True, blank=True)
     email_confirmed = models.BooleanField(default=False)
+    photo = models.ImageField(upload_to='media/% Y/% m/% d/', default='media/ava.png')
+    date_of_birth = models.DateField(auto_now=False, auto_now_add=False, null=True, blank=True)
+    hide_age = models.BooleanField(default=False)
+    city = models.CharField(max_length=100, null=True, blank=True)
+    marriage_status = models.CharField(max_length=100, null=True, blank=True)
 
     def __str__(self):
         return self.user.username
