@@ -12,6 +12,7 @@ from django.views.generic import DetailView, FormView, ListView, TemplateView
 
 from .forms import LoginForm, SignUpForm
 from .tokens import account_activation_token
+from .models import PlanningChild
 
 
 def logout_view(request):
@@ -89,4 +90,9 @@ class ProfileSettingsView(TemplateView):
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
+        planningchild = PlanningChild.objects.filter(user=self.request.user).last()
+        planningchild_id = 0
+        if planningchild is not None:
+            planningchild_id = planningchild.id
+        context['planningchild_id'] = planningchild_id
         return context

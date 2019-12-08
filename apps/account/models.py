@@ -24,3 +24,13 @@ def update_user_profile(sender, instance, created, **kwargs):
     if created:
         Profile.objects.create(user=instance)
     instance.profile.save()
+
+
+class PlanningChild(models.Model):
+    user = models.ForeignKey(User, on_delete=models.SET_NULL, null=True)
+    planning = models.BooleanField(blank=True, null=True, default=False)
+    pregnant = models.BooleanField(blank=True, null=True, default=False)
+    weeks = models.IntegerField(default=0)
+    days = models.IntegerField(default=0)
+    date_birth_baby = models.DateField(auto_now=False, auto_now_add=False, null=True, blank=True)
+    children = models.CharField(blank=True, null=True, max_length=100)

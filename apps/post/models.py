@@ -4,7 +4,7 @@ from django.utils import timezone
 
 
 class Post(models.Model):
-    user = models.ForeignKey(User, on_delete=models.CASCADE, blank=True, null=True)
+    user = models.ForeignKey(User, on_delete=models.SET_NULL, blank=True, null=True)
     title = models.CharField(max_length=200)
     description = models.TextField()
     category = models.ManyToManyField('Category', blank=True, null=True)
@@ -32,11 +32,11 @@ class Category(models.Model):
 
 
 class Comment(models.Model):
-    user = models.ForeignKey(User, on_delete=models.CASCADE)
+    user = models.ForeignKey(User, on_delete=models.SET_NULL, null=True)
     text = models.CharField(max_length=200)
     created_date = models.DateTimeField(default=timezone.now)
     published_date = models.DateTimeField(blank=True, null=True)
-    post = models.ForeignKey('Post', on_delete=models.CASCADE)
+    post = models.ForeignKey('Post', on_delete=models.SET_NULL, null=True)
     like = models.IntegerField(default=0)
 
     def publish(self):
@@ -56,6 +56,6 @@ class Tag(models.Model):
 
 
 class PostTag(models.Model):
-    tag = models.ForeignKey('Tag', on_delete=models.CASCADE)
-    post = models.ForeignKey('Post', on_delete=models.CASCADE)
+    tag = models.ForeignKey('Tag', on_delete=models.SET_NULL, null=True)
+    post = models.ForeignKey('Post', on_delete=models.SET_NULL, null=True)
 

@@ -1,5 +1,5 @@
 from rest_framework import serializers
-from ..models import Profile
+from ..models import Profile, PlanningChild
 from django.contrib.auth.models import User
 
 
@@ -20,3 +20,10 @@ class ProfileSerializer(serializers.ModelSerializer):
         read_only_fields = ['id', 'user']
 
         #fields = ['first_name', 'last_name', 'email',]
+
+
+class PlanningChildSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = PlanningChild
+        fields = '__all__'
+

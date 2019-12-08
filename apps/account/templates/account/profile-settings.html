@@ -42,12 +42,12 @@
                         <div class="form-group">
                             <label for="formGroupExampleInput">Ваше имя</label>
                             <input type="text" class="form-control user-inf-input" id="user_first_name_input"
-                                   placeholder="Введите имя">
+                                   placeholder="Введите имя" value="{{ user.first_name }}">
                         </div>
                         <div class="form-group">
                             <label for="formGroupExampleInput">Ваша фамилия</label>
                             <input type="text" class="form-control user-inf-input" id="user_last_name_input"
-                                   placeholder="Введите имя">
+                                   placeholder="Введите имя" value="{{ user.last_name }}">
                         </div>
                     </div>
 
@@ -55,7 +55,8 @@
                         <div class="form-group">
                             <label for="formGroupExampleInput2">Дата рождения</label>
                             <input type="text" class="form-control user-inf-input" id="user_date_input"
-                                   placeholder="Выберите дату" data-provide="datepicker">
+                                   placeholder="Выберите дату" data-provide="datepicker"
+                                   data-date-format="yyyy-mm-dd" value="{{ user.profile.date_of_birth|date:'Y-m-d' }}">
                         </div>
                         {#                        <div class="form-check form-check-inline form-group user-inf-input user-form-checkbox">#}
                         {#                            <input class="form-check-input" type="checkbox" id="inlineCheckbox1" value="option1">#}
@@ -64,7 +65,7 @@
                         <div class="form-group user-inf-input user-form-checkbox ">
                             <label class="custom-checkbox">
                                 Не показывать возраст
-                                <input type="checkbox" name="hide_age" id="user_hide_age_checkbox">
+                                <input type="checkbox" name="hide_age" id="user_hide_age_checkbox" checked="{{ user.profile.hide_age }}">
                                 <span class="checkmark"></span>
                             </label>
                         </div>
@@ -81,7 +82,7 @@
                         <div class="form-group">
                             <label for="exampleInputEmail1">Ваш Email</label>
                             <input type="email" class="form-control user-inf-input" id="user_email_input"
-                                   aria-describedby="emailHelp" placeholder="Enter email">
+                                   aria-describedby="emailHelp" placeholder="Enter email" value="{{ user.email }}">
                         </div>
                     </div>
 
@@ -137,13 +138,13 @@
                     <div class="user-inf-input user-form-checkbox planning-child-checkbox">
                         <label class="custom-checkbox ">
                             Я планирую
-                            <input type="checkbox" name="planning_baby" id="planning_baby_checkbox">
+                            <input type="radio" name="planning_or_pregnant" value="planning" checked="true" id="planning_baby_checkbox">
                             <span class="checkmark"></span>
                         </label>
 
                         <label class="custom-checkbox ">
                             Я беременна
-                            <input type="checkbox" name="pregnant" id="pregnant_checkbox">
+                            <input type="radio" name="planning_or_pregnant" value="pregnant" id="pregnant_checkbox">
                             <span class="checkmark"></span>
                         </label>
                     </div>
@@ -151,25 +152,26 @@
                     <div class="baby-planning-period">
                         <label class="baby-planning-period-label">Срок</label>
 
-                        <select id="inputState" class="form-control baby-planning-weeks period">
+                        <select id="weeks_baby" class="form-control baby-planning-weeks period">
                             <option selected="">1 неделя</option>
+                            <option selected="">10 недель</option>
                             <option>...</option>
                         </select>
 
-                        <select id="inputState" class="form-control baby-planning-weeks period">
+                        <select id="days_baby" class="form-control baby-planning-weeks period">
                             <option selected="">0 дней</option>
                             <option>...</option>
                         </select>
 
                         <label class="baby-planning-period-label">Предполагаемая дата рождения</label>
-                        <input type="text" class="form-control user-inf-input baby-date-birth" id="date-input"
-                               placeholder="Выберите дату" data-provide="datepicker">
+                        <input type="text" class="form-control user-inf-input baby-date-birth" id="date-birth-baby"
+                               placeholder="Выберите дату" data-provide="datepicker" data-date-format="yyyy-mm-dd">
 
                     </div>
 
                     <div class="baby-planning-period">
                         <label class="baby-planning-period-label">Я жду</label>
-                        <select id="inputState" class="form-control baby-planning-weeks period">
+                        <select id="children_selection" class="form-control baby-planning-weeks period">
                             <option selected="">Не уверена</option>
                             <option>...</option>
                         </select>
@@ -245,7 +247,7 @@
                         <div class="">
                             <label for="formGroupExampleInput2">Дата рождения</label>
                             <input type="text" class="form-control user-inf-input child-inf-input" id="date-input"
-                                   placeholder="Выберите дату" data-provide="datepicker">
+                                   placeholder="Выберите дату" data-provide="datepicker" data-date-format="yyyy-mm-dd">
                         </div>
 
                         <div class="child-sex-radiobtn">
@@ -359,4 +361,11 @@
     var url_profile_detail = "{% url 'userapi:profile-detail' user.profile.id %}";
     var url_user_list = "{% url 'userapi:user-list' %}";
     var url_user_detail = "{% url 'userapi:user-detail' user.id %}";
+    var url_planningchild_list = "{% url 'userapi:planningchild-list' %}";
+    var planningchild_id = {{ planningchild_id }};
+    var user_id = {{ user.id }};
+    {% if planningchild_id > 0 %}
+        var url_planningchild_detail = "{% url 'userapi:planningchild-detail' planningchild_id %}";
+    {% endif %}
+
 {% endblock %}
