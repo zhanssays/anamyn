@@ -9,13 +9,17 @@ $(document).ready(function (e) {
         children_list.style.display = "none";
     });
 
-    $("#cancel-add-child").on("click", function (e) {
+    function children_list(){
         var form = document.getElementById("add-child-form");
         var btn = document.getElementById("add-child-btn");
         var children_list = document.getElementById("children-list");
         form.style.display = "none";
         btn.style.display = "block";
         children_list.style.display = "block";
+    }
+
+    $("#cancel-add-child").on("click", function (e) {
+        children_list();
     });
 
     $("#planning-child-save-btn").on("click", function (e) {
@@ -50,9 +54,10 @@ $(document).ready(function (e) {
                     console.log('planning PUT saved');
                 }
             });
+            show_baby_planning();
         }
-        else{
-             $.ajax({
+        else {
+            $.ajax({
                 url: url_planningchild_list,
                 type: "POST",
                 dataType: "json",
@@ -75,12 +80,30 @@ $(document).ready(function (e) {
 
     });
 
-    $("#baby-planning-edit-btn").on("click", function (e) {
-        e.preventDefault();
+    function show_baby_planning() {
+        var form = document.getElementById("planning-child-form");
+        var children_list = document.getElementById("planning-child-list");
+        form.style.display = "none";
+        children_list.style.display = "block";
+    }
+
+    function show_baby_planning_edit() {
         var form = document.getElementById("planning-child-form");
         var children_list = document.getElementById("planning-child-list");
         form.style.display = "block";
         children_list.style.display = "none";
+    }
+
+    if (is_user_planning_child_or_pregnant) {
+        show_baby_planning();
+    }
+    else {
+        show_baby_planning_edit();
+    }
+
+    $("#baby-planning-edit-btn").on("click", function (e) {
+        e.preventDefault();
+        show_baby_planning_edit()
     });
 
     $("#save-personal-inf-btn").on("click", function (e) {
@@ -136,6 +159,42 @@ $(document).ready(function (e) {
 
     });
 
+
+    $("#add_child_save_btn").on("click", function (e) {
+        //e.preventDefault();
+        var child_name = $("#child_name_input").val();
+        var child_date = $("#child_date_input").val();
+        var gender = $('input[name=gender]:checked').val();
+        var child_description = $("#child_description").val();
+        var child_city = $("#child_city option:selected").val();
+        var child_hospital = $("#child_hospital option:selected").val();
+        var home_birth = $('#not_hospital').is(":checked");
+        var hospital_rating = $(".star-rating input[type=radio]:checked ~ label").length;
+        var hospital_review = $("#hospital_review").val();
+
+        $.ajax({
+                url: url_children_list,
+                type: "POST",
+                dataType: "json",
+                data: {
+                    user: user_id,
+                    name: child_name,
+                    child_date_birth: child_date,
+                    gender: gender,
+                    child_description: child_description,
+                    city: child_city,
+                    hospital: child_hospital,
+                    home_birth: home_birth,
+                    hospital_rating: hospital_rating,
+                    hospital_description: hospital_review,
+                },
+                success: function () {
+                    console.log('child saved');
+                    children_list();
+                }
+            });
+
+    });
 
     // $(".add-child-clone-btn").on("click", function (e) {
     //     var copy = document.querySelector("#add-child-form").cloneNode(true);

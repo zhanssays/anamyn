@@ -12,7 +12,9 @@ from django.views.generic import DetailView, FormView, ListView, TemplateView
 
 from .forms import LoginForm, SignUpForm
 from .tokens import account_activation_token
-from .models import PlanningChild
+from .models import Child, PlanningChild
+
+from datetime import date
 
 
 def logout_view(request):
@@ -95,4 +97,23 @@ class ProfileSettingsView(TemplateView):
         if planningchild is not None:
             planningchild_id = planningchild.id
         context['planningchild_id'] = planningchild_id
+        context['weeks'] = range(0, 43)
+        context['children'] = Child.objects.filter(user=self.request.user)
+        context['star_rating'] = range(5)
+        if (self.request.user.child_set.count() > 0):
+            children = self.request.user.child_set.all()
+            child_age = {}
+            child_age_type = {}
+            for child in children:
+                child_age[child.id] = date.today().year - child.child_date_birth.year
+                child_age_type[child.id] = 'years'
+                if child_age[child.id] == 0:
+                    child_age[child.id] = date.today().month - child.child_date_birth.month
+                    child_age_type[child.id] = 'months'
+                if child_age[child.id] == 0:
+                    child_age[child.id] = date.today().day - child.child_date_birth.day
+                    child_age_type[child.id] = 'days'
+            context['child_age'] = child_age
+            context['child_age_type'] = child_age_type
+
         return context

@@ -1,5 +1,7 @@
 {% extends 'main/profile.html' %}
 {% load static %}
+{% load i18n %}
+{% load custom_filters %}
 
 {% block head %}
     <link rel="stylesheet" type="text/css" href="{% static 'account/style.css' %}">
@@ -65,7 +67,8 @@
                         <div class="form-group user-inf-input user-form-checkbox ">
                             <label class="custom-checkbox">
                                 Не показывать возраст
-                                <input type="checkbox" name="hide_age" id="user_hide_age_checkbox" checked="{{ user.profile.hide_age }}">
+                                <input type="checkbox" name="hide_age" id="user_hide_age_checkbox"
+                                       checked="{{ user.profile.hide_age }}">
                                 <span class="checkmark"></span>
                             </label>
                         </div>
@@ -90,18 +93,37 @@
                         <div class="form-group">
                             <label for="formGroupExampleInput2">Семейное положение</label>
                             <select id="user_marriage_status" class="form-control user-inf-input">
-                                <option selected>Замужем</option>
-                                <option>...</option>
+                                <option {% if "Не указывать" == user.profile.marriage_status %} selected {% endif %}>Не
+                                    указывать
+                                </option>
+                                <option {% if "Не замужем" == user.profile.marriage_status %} selected {% endif %}>Не
+                                    замужем
+                                </option>
+                                <option  {% if "Замужем" == user.profile.marriage_status %} selected {% endif %}>
+                                    Замужем
+                                </option>
+                                <option {% if "Разведена" == user.profile.marriage_status %} selected {% endif %}>
+                                    Разведена
+                                </option>
+                                <option {% if "Помолвлена" == user.profile.marriage_status %} selected {% endif %}>
+                                    Помолвлена
+                                </option>
+                                <option {% if "Вдова" == user.profile.marriage_status %} selected {% endif %}>Вдова
+                                </option>
                             </select>
                         </div>
                     </div>
 
                     <div>
                         <div>
-                            <button type="submit" id="save-personal-inf-btn" class="btn btn-primary user-inf-save-btn">Сохранить</button>
+                            <button type="submit" id="save-personal-inf-btn" class="btn btn-primary user-inf-save-btn">
+                                Сохранить
+                            </button>
                         </div>
                         <div>
-                            <button type="submit" id="delete_account_btn" class="btn btn-primary user-inf-delete-btn">Удалить аккаунт</button>
+                            <button type="submit" id="delete_account_btn" class="btn btn-primary user-inf-delete-btn">
+                                Удалить аккаунт
+                            </button>
                         </div>
                     </div>
                 </form>
@@ -123,11 +145,25 @@
                     </div>
                     <div class="planning-child-info">
                         <label for="" class="planning-child-label">Срок:</label>
-                        <label for="">5 недель 2 дней</label>
+                        <label for="">
+                            {% blocktrans trimmed count weeks=user.planningchild_set.first.weeks %}
+                                {{ weeks }} week
+                            {% plural %}
+                                {{ weeks }} weeks
+                            {% endblocktrans %}
+                            {% trans "and" %}
+                            {% blocktrans trimmed count days=user.planningchild_set.first.days %}
+                                {{ days }} day
+                            {% plural %}
+                                {{ days }} days
+                            {% endblocktrans %}
+                        </label>
+
+
                         <label for="" class="planning-child-label">Предополагамая дата рождения:</label>
-                        <label for="">20.07.2020</label>
+                        <label for="">{{ user.planningchild_set.first.date_birth_baby|date:'Y-m-d' }}</label>
                         <label for="" class="planning-child-label">Я жду:</label>
-                        <label for="">Не уверена</label>
+                        <label for="">{{ user.planningchild_set.first.children }}</label>
                     </div>
                 </div>
 
@@ -138,13 +174,15 @@
                     <div class="user-inf-input user-form-checkbox planning-child-checkbox">
                         <label class="custom-checkbox ">
                             Я планирую
-                            <input type="radio" name="planning_or_pregnant" value="planning" checked="true" id="planning_baby_checkbox">
+                            <input type="radio" name="planning_or_pregnant" value="planning" id="planning_baby_checkbox"
+                                    {% if user.planningchild_set.first.planning %} checked {% endif %}>
                             <span class="checkmark"></span>
                         </label>
 
                         <label class="custom-checkbox ">
                             Я беременна
-                            <input type="radio" name="planning_or_pregnant" value="pregnant" id="pregnant_checkbox">
+                            <input type="radio" name="planning_or_pregnant" value="pregnant" id="pregnant_checkbox"
+                                    {% if user.planningchild_set.first.pregnant %} checked {% endif %}>
                             <span class="checkmark"></span>
                         </label>
                     </div>
@@ -153,32 +191,60 @@
                         <label class="baby-planning-period-label">Срок</label>
 
                         <select id="weeks_baby" class="form-control baby-planning-weeks period">
-                            <option selected="">1 неделя</option>
-                            <option selected="">10 недель</option>
-                            <option>...</option>
+                            {% for week in weeks %}
+                                <option {% if week == user.planningchild_set.first.weeks %} selected {% endif %}>
+                                    {% blocktrans trimmed count weeks=week %}
+                                        {{ weeks }} week
+                                    {% plural %}
+                                        {{ weeks }} weeks
+                                    {% endblocktrans %}
+                                </option>
+                            {% endfor %}
                         </select>
 
                         <select id="days_baby" class="form-control baby-planning-weeks period">
-                            <option selected="">0 дней</option>
-                            <option>...</option>
+
+                            <option {% if 0 == user.planningchild_set.first.days %} selected {% endif %}>0 дней</option>
+
+                            <option {% if 1 == user.planningchild_set.first.days %} selected {% endif %}>1 день</option>
+                            <option {% if 2 == user.planningchild_set.first.days %} selected {% endif %}>2 дня</option>
+                            <option {% if 3 == user.planningchild_set.first.days %} selected {% endif %}>3 дня</option>
+                            <option {% if 4 == user.planningchild_set.first.days %} selected {% endif %}>4 дня</option>
+                            <option {% if 5 == user.planningchild_set.first.days %} selected {% endif %}>5 дней</option>
+                            <option {% if 6 == user.planningchild_set.first.days %} selected {% endif %}>6 дней</option>
                         </select>
 
                         <label class="baby-planning-period-label">Предполагаемая дата рождения</label>
                         <input type="text" class="form-control user-inf-input baby-date-birth" id="date-birth-baby"
-                               placeholder="Выберите дату" data-provide="datepicker" data-date-format="yyyy-mm-dd">
-
+                               placeholder="Выберите дату" data-provide="datepicker" data-date-format="yyyy-mm-dd"
+                               value="{{ user.planningchild_set.first.date_birth_baby|date:'Y-m-d' }}">
                     </div>
 
                     <div class="baby-planning-period">
                         <label class="baby-planning-period-label">Я жду</label>
                         <select id="children_selection" class="form-control baby-planning-weeks period">
-                            <option selected="">Не уверена</option>
-                            <option>...</option>
+                            <option {% if 'Не уверенна' == user.planningchild_set.first.children %}selected {% endif %}>
+                                Не уверена
+                            </option>
+                            <option {% if "Мальчика" == user.planningchild_set.first.children %} selected {% endif %}>
+                                Мальчика
+                            </option>
+                            <option {% if "Девочку" == user.planningchild_set.first.children %} selected {% endif %}>
+                                Девочку
+                            </option>
+                            <option {% if "Двойняшек" == user.planningchild_set.first.children %} selected {% endif %}>
+                                Двойняшек
+                            </option>
+                            <option {% if "Тройняшек" == user.planningchild_set.first.children %} selected {% endif %}>
+                                Тройняшек
+                            </option>
                         </select>
                     </div>
 
                     <div class="planning-div-btn">
-                        <button id="planning-child-save-btn" type="submit" class="btn btn-primary user-inf-save-btn">Сохранить</button>
+                        <button id="planning-child-save-btn" type="submit" class="btn btn-primary user-inf-save-btn">
+                            Сохранить
+                        </button>
                     </div>
 
                 </div>
@@ -188,40 +254,58 @@
             <div class="tab-pane fade add-baby-pane" id="nav-children" role="tabpanel"
                  aria-labelledby="nav-children-tab">
 
-                <div id="children-list">
-                    <div class="child-personal-info">
-                        <div class="baby-photo-ava">
-                        </div>
-                        <div class="child-inf">
-                            <label for="" class="child-name">Карди б</label>
-                            <label for="" class="">3 годика(12.12.2016)</label>
-                            <label for="" class="">Девочка</label>
-                        </div>
-                    </div>
+                {% for child in children %}
+                    <div id="children-list">
 
-                    <div class="child-personal-info child-inf">
-                        <label for="" class="child-inf-title">Коротко о ребенке</label>
-                        <label for="">Непоседа, смышленная и веселая</label>
-                    </div>
-
-                    <div class="child-personal-info child-inf">
-                        <label for="" class="child-inf-title">Место родов</label>
-                        <label for="">г.Алматы,№12 поликлиника</label>
-                    </div>
-
-                    <div class="child-personal-info child-inf">
-                        <label for="" class="child-inf-title">Отзыв о роддоме</label>
-                        {#                        star rating#}
-                        <div class="star-rating-div">
-                            <span class="fa fa-star star-checked"></span>
-                            <span class="fa fa-star star-checked"></span>
-                            <span class="fa fa-star star-checked"></span>
-                            <span class="fa fa-star"></span>
-                            <span class="fa fa-star"></span>
+                        <div class="child-personal-info child-personal-info-space-between">
+                            <div class="child-personal-info-photo">
+                                <div class="baby-photo-ava"></div>
+                                <div class="child-inf">
+                                    <label for="" class="child-name">{{ child.name }}</label>
+                                    <label for="" class="">
+                                        {{ child_age|get_value_from_dict:child.id }} {{ child_age_type|get_value_from_dict:child.id }} ({{ child.child_date_birth }})
+                                    </label>
+                                    <label for="" class="">{{ child.gender }}</label>
+                                </div>
+                            </div>
+                            <div>
+                                <a href="" class="baby-planning-edit-btn" id="baby-add-btn">
+                                    <i class="fas fa-pen edit-delete-icon" aria-hidden="true"></i>Редактировать</a>
+                                <a href="" class="baby-planning-delete-btn" id="baby-delete-btn">
+                                    <i class="fas fa-trash edit-delete-icon" aria-hidden="true"></i>Удалить</a>
+                            </div>
                         </div>
-                        <label for="">Отличный персонал, всем рекомендую</label>
+
+                        <div class="child-personal-info child-inf">
+                            <label for="" class="child-inf-title">Коротко о ребенке</label>
+                            <label for="">{{ child.child_description }}</label>
+                        </div>
+
+                        <div class="child-personal-info child-inf">
+                            <label for="" class="child-inf-title">Место родов</label>
+                            {% if child.home_birth == False %}
+                                <label for="">{{ child.city }}, {{ child.hospital }}</label>
+                            {% else %}
+                                <label for="">Рожала дома</label>
+                            {% endif %}
+                        </div>
+
+                        <div class="child-personal-info child-inf">
+                            <label for="" class="child-inf-title">Отзыв о роддоме</label>
+                            {#                        star rating#}
+                            <div class="star-rating-div">
+                                {% for star in star_rating %}
+                                    {% if star < child.hospital_rating %}
+                                        <span class="fa fa-star star-checked"></span>
+                                    {% else %}
+                                        <span class="fa fa-star"></span>
+                                    {% endif %}
+                                {% endfor %}
+                            </div>
+                            <label for="">{{ child.hospital_description }}</label>
+                        </div>
                     </div>
-                </div>
+                {% endfor %}
 
                 {#                button add child#}
                 <div class="add-baby-div-btn">
@@ -241,12 +325,12 @@
                         <div>
                             <label for="formGroupExampleInput">Имя</label>
                             <input type="text" class="form-control user-inf-input child-inf-input"
-                                   id="formGroupExampleInput"
+                                   id="child_name_input"
                                    placeholder="Введите имя">
                         </div>
                         <div class="">
                             <label for="formGroupExampleInput2">Дата рождения</label>
-                            <input type="text" class="form-control user-inf-input child-inf-input" id="date-input"
+                            <input type="text" class="form-control user-inf-input child-inf-input" id="child_date_input"
                                    placeholder="Выберите дату" data-provide="datepicker" data-date-format="yyyy-mm-dd">
                         </div>
 
@@ -269,7 +353,8 @@
                     <div class="child-add-form">
                         <div class="child-description">
                             <label>Коротко о ребенке</label>
-                            <textarea name="" id="" cols="30" rows="10" class="child-description-textarea">
+                            <textarea name="" id="child_description" cols="30" rows="10"
+                                      class="child-description-textarea">
 
                         </textarea>
                         </div>
@@ -280,14 +365,14 @@
 
                         <div>
                             <label>Город</label>
-                            <select id="inputState" class="form-control baby-birth-place-select period">
+                            <select id="child_city" class="form-control baby-birth-place-select period">
                                 <option selected="">Алматы</option>
                                 <option>...</option>
                             </select>
                         </div>
                         <div>
                             <label>Роддом</label>
-                            <select id="inputState" class="form-control baby-birth-place-select period">
+                            <select id="child_hospital" class="form-control baby-birth-place-select period">
                                 <option selected="">5 больница</option>
                                 <option>...</option>
                             </select>
@@ -295,7 +380,7 @@
                         <div class="form-group user-inf-input child-form-checkbox ">
                             <label class="custom-checkbox">
                                 Рожала не в роддоме
-                                <input type="checkbox" name="hide_age" id="hide_age_checkbox">
+                                <input type="checkbox" name="not_hospital" id="not_hospital">
                                 <span class="checkmark"></span>
                             </label>
                         </div>
@@ -326,13 +411,15 @@
                                     <i class="active fa fa-star" aria-hidden="true"></i>
                                 </label>
                             </div>
-                            <textarea name="" id="" cols="30" rows="10" class="child-description-textarea">
+                            <textarea name="" id="hospital_review" cols="30" rows="10"
+                                      class="child-description-textarea">
                         </textarea>
                         </div>
                     </div>
 
                     <div class="child-add-form">
-                        <button type="submit" class="btn btn-primary user-inf-save-btn child-add-save-btn">Сохранить
+                        <button id="add_child_save_btn" type="submit"
+                                class="btn btn-primary user-inf-save-btn child-add-save-btn">Сохранить
                         </button>
                     </div>
 
@@ -367,5 +454,12 @@
     {% if planningchild_id > 0 %}
         var url_planningchild_detail = "{% url 'userapi:planningchild-detail' planningchild_id %}";
     {% endif %}
+    {% if user.planningchild_set.first.planning or user.planningchild_set.first.pregnant %}
+        var is_user_planning_child_or_pregnant = true;
+    {% else %}
+        var is_user_planning_child_or_pregnant = false;
+    {% endif %}
+
+    var url_children_list = "{% url 'userapi:child-list' %}"
 
 {% endblock %}

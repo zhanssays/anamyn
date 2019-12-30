@@ -19,6 +19,7 @@ from django.conf.urls.static import static
 from django.conf import settings
 from django.contrib.auth.models import User
 from rest_framework import routers, serializers, viewsets
+from django.conf.urls.i18n import i18n_patterns
 
 
 # Serializers define the API representation.
@@ -38,11 +39,11 @@ class UserViewSet(viewsets.ModelViewSet):
 router = routers.DefaultRouter()
 router.register(r'users', UserViewSet)
 
-urlpatterns = [
+urlpatterns = i18n_patterns(
     url(r'^admin/', admin.site.urls),
-    url(r'', include('account.urls')),
+    (url(r'', include('account.urls'))),
     url(r'post/', include('post.urls')),
     url(r'tinymce/', include('tinymce.urls')),
     url(r'tag/', include('tag.urls')),
     url(r'^api/', include('account.api.urls')),
-] + static(settings.STATIC_URL, document_root=settings.STATIC_ROOT) + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
+) + static(settings.STATIC_URL, document_root=settings.STATIC_ROOT) + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

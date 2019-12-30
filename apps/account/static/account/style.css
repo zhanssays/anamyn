@@ -394,7 +394,7 @@
     width: 458px;
     height: 102px;
     border-radius: 5px;
-    opacity: 0.2;
+    border: 1px solid rgba(0, 0, 0, .2);
 }
 
 .birth-place-label{
@@ -463,11 +463,20 @@
 /*children list*/
 #children-list{
     font-size: 14px;
+    display: block;
 }
 
 .child-personal-info{
     display: flex;
     margin-top: 20px;
+}
+
+.child-personal-info-space-between {
+    justify-content: space-between;
+}
+
+.child-personal-info-photo {
+    display: flex;
 }
 
 .baby-photo-ava{

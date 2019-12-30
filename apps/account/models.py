@@ -34,3 +34,16 @@ class PlanningChild(models.Model):
     days = models.IntegerField(default=0)
     date_birth_baby = models.DateField(auto_now=False, auto_now_add=False, null=True, blank=True)
     children = models.CharField(blank=True, null=True, max_length=100)
+
+
+class Child(models.Model):
+    user = models.ForeignKey(User, on_delete=models.SET_NULL, null=True)
+    name = models.CharField(blank=False, null=True, max_length=100)
+    child_date_birth = models.DateField(auto_now=False, auto_now_add=False, null=True, blank=True)
+    gender = models.CharField(blank=False, null=True, max_length=100)
+    child_description = models.TextField(blank=True, null=True)
+    city = models.CharField(blank=False, null=True, max_length=100)
+    hospital = models.CharField(blank=False, null=True, max_length=100)
+    home_birth = models.BooleanField(blank=True, null=True, default=False)
+    hospital_rating = models.IntegerField(default=0)
+    hospital_description = models.TextField(blank=True, null=True)

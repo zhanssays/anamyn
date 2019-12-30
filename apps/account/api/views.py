@@ -1,7 +1,7 @@
-from ..models import Profile, PlanningChild
+from ..models import Child, Profile, PlanningChild
 from django.contrib.auth.models import User
 from rest_framework import viewsets
-from .serializers import ProfileSerializer, PlanningChildSerializer, UserSerializer
+from .serializers import ChildSerializer, ProfileSerializer, PlanningChildSerializer, UserSerializer
 
 
 class ProfileViewSet(viewsets.ModelViewSet):
@@ -23,3 +23,8 @@ class UserViewSet(viewsets.ModelViewSet):
 class PlanningChildViewSet(viewsets.ModelViewSet):
     queryset = PlanningChild.objects.all()
     serializer_class = PlanningChildSerializer
+
+
+class ChildViewSet(viewsets.ModelViewSet):
+    queryset = Child.objects.all()
+    serializer_class = ChildSerializer

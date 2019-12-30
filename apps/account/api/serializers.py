@@ -1,5 +1,5 @@
 from rest_framework import serializers
-from ..models import Profile, PlanningChild
+from ..models import Child, Profile, PlanningChild
 from django.contrib.auth.models import User
 
 
@@ -25,5 +25,11 @@ class ProfileSerializer(serializers.ModelSerializer):
 class PlanningChildSerializer(serializers.ModelSerializer):
     class Meta:
         model = PlanningChild
+        fields = '__all__'
+
+
+class ChildSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Child
         fields = '__all__'
 
