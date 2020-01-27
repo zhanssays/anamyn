@@ -255,7 +255,7 @@
                  aria-labelledby="nav-children-tab">
 
                 {% for child in children %}
-                    <div id="children-list">
+                    <div class="children-list">
 
                         <div class="child-personal-info child-personal-info-space-between">
                             <div class="child-personal-info-photo">
@@ -269,9 +269,9 @@
                                 </div>
                             </div>
                             <div>
-                                <a href="" class="baby-planning-edit-btn" id="baby-add-btn">
+                                <a href="" class="baby-edit-btn" id="baby-edit-btn" child_detail_url="{% url 'userapi:child-detail' child.id %}">
                                     <i class="fas fa-pen edit-delete-icon" aria-hidden="true"></i>Редактировать</a>
-                                <a href="" class="baby-planning-delete-btn" id="baby-delete-btn">
+                                <a href="" class="baby-delete-btn" id="baby-delete-btn">
                                     <i class="fas fa-trash edit-delete-icon" aria-hidden="true"></i>Удалить</a>
                             </div>
                         </div>
@@ -424,7 +424,7 @@
                     </div>
 
                     <div class="child-add-form">
-                        <div class="add-baby-div-btn">
+                        <div class="add-baby-div-btn add-baby-cancel-btn">
                             <button type="submit" id="cancel-add-child"
                                     class="btn btn-primary user-inf-save-btn add-baby-btn cancel-add-btn">
                                 Отмена

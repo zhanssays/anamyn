@@ -461,9 +461,18 @@
 }
 
 /*children list*/
-#children-list{
+.children-list{
     font-size: 14px;
     display: block;
+}
+
+.baby-edit-btn{
+    color: #F9476C;
+    margin-right: 20px;
+}
+
+.baby-delete-btn{
+    color: #F9476C;
 }
 
 .child-personal-info{

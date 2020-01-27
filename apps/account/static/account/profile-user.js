@@ -10,15 +10,15 @@ $(document).ready(function (e) {
     });
 
     function children_list(){
-        var form = document.getElementById("add-child-form");
-        var btn = document.getElementById("add-child-btn");
-        var children_list = document.getElementById("children-list");
-        form.style.display = "none";
-        btn.style.display = "block";
-        children_list.style.display = "block";
+        $("#add-child-form").hide();
+        $("#add-child-btn").show();
+        $(".children-list").show();
+        $(".add-baby-div-btn").show();
+
     }
 
     $("#cancel-add-child").on("click", function (e) {
+        e.preventDefault();
         children_list();
     });
 
@@ -159,6 +159,46 @@ $(document).ready(function (e) {
 
     });
 
+    function baby_edit() {
+        $(".children-list").hide();
+        $("#add-child-form").show();
+        $(".add-baby-div-btn").hide();
+        $(".add-baby-cancel-btn").show();
+    }
+
+    $(".baby-edit-btn").on("click", function (e) {
+        e.preventDefault();
+        var child_detail_url = $(this).attr("child_detail_url");
+        console.log(child_detail_url);
+        baby_edit();
+
+        $.ajax({
+            url: child_detail_url,
+            type: "GET",
+            dataType: "json",
+            success: function (data) {
+                $("#child_name_input").val(data["name"]);
+                $("#child_date_input").val(data["child_date_birth"]);
+                $("input[name=gender][value=" + data["gender"] + "]").prop("checked", true);
+                $("#child_description").val(data["child_description"]);
+                // child city select
+                // child hospital select
+                if (data["home_birth"]) {
+                    $('#not_hospital').prop("checked", true);
+                }
+                for (var i = 1; i <= data["hospital_rating"]; i++) {
+                    $("#star-" + i).prop("checked", true);
+                }
+
+                $("#hospital_review").val(data["hospital_description"]);
+            },
+            error: function (xhr, errmsg, err) {
+                console.log(xhr.status + ": " + xhr.responseText); // provide a bit more info about the error to the console
+            }
+        });
+    });
+
+
 
     $("#add_child_save_btn").on("click", function (e) {
         //e.preventDefault();
@@ -190,6 +230,7 @@ $(document).ready(function (e) {
                 },
                 success: function () {
                     console.log('child saved');
+                    location.reload();
                     children_list();
                 }
             });
