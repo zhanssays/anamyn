@@ -191,6 +191,7 @@ $(document).ready(function (e) {
                 }
 
                 $("#hospital_review").val(data["hospital_description"]);
+                $("#edit_child_save_btn").attr("child_save_url", child_detail_url);
             },
             error: function (xhr, errmsg, err) {
                 console.log(xhr.status + ": " + xhr.responseText); // provide a bit more info about the error to the console
